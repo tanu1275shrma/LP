@@ -1,41 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/autoplay";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import JoinButton from "./JoinButton";
 
 const SuccessStories = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
+  const [isMobile, setIsMobile] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
-
-  // 🧠 Wait for user interaction once
-  useEffect(() => {
-    const enableSound = () => {
-      setUserInteracted(true);
-      console.log("🔊 ");
-
-      // Unmute all existing videos
-      document.querySelectorAll("video").forEach((v) => {
-        v.muted = false;
-        v.volume = 1;
-      });
-
-      // Remove listeners (only need to trigger once)
-      document.removeEventListener("click", enableSound);
-      document.removeEventListener("keydown", enableSound);
-    };
-
-    document.addEventListener("click", enableSound);
-    document.addEventListener("keydown", enableSound);
-
-    return () => {
-      document.removeEventListener("click", enableSound);
-      document.removeEventListener("keydown", enableSound);
-    };
-  }, []);
+  const swiperRef = useRef(null);
+  const videoRefs = useRef([]);
 
   const awards = [
     { video: "/images/Yogesh.mp4" },
@@ -44,40 +18,72 @@ const SuccessStories = () => {
     { video: "/images/Rajendra.mp4" },
   ];
 
-  // 🎬 Play video with sound when hovered
-  const handleMouseEnter = async (index) => {
-    setHoveredIndex(index);
-    const video = document.getElementById(`video-${index}`);
-    if (!video) return;
+  // ✅ Detect mobile view
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
-    try {
-      video.currentTime = 0;
-      video.preload = "auto";
-      video.loop = true;
+  // ✅ Handle user interaction for sound unlock
+  useEffect(() => {
+    const enableSound = () => {
+      setUserInteracted(true);
+      document.querySelectorAll("video").forEach((v) => {
+        v.muted = false;
+        v.volume = 1;
+      });
+      document.removeEventListener("click", enableSound);
+      document.removeEventListener("touchstart", enableSound);
+    };
 
-      if (userInteracted) {
-        video.muted = false;
-        video.volume = 1;
-      } else {
-        video.muted = true; // autoplay-safe before first click
+    document.addEventListener("click", enableSound);
+    document.addEventListener("touchstart", enableSound);
+
+    return () => {
+      document.removeEventListener("click", enableSound);
+      document.removeEventListener("touchstart", enableSound);
+    };
+  }, []);
+
+  // ✅ Stop all videos
+  const stopAllVideos = () => {
+    videoRefs.current.forEach((v) => {
+      if (v) {
+        v.pause();
+        v.currentTime = 0;
+        v.muted = true;
       }
-
-      await video.play();
-    } catch (err) {
-      console.warn("🎧 Playback issue:", err);
-    }
+    });
   };
 
-  // 🛑 Pause video when hover ends
-  const handleMouseLeave = (index) => {
-    setHoveredIndex(null);
-    const video = document.getElementById(`video-${index}`);
+  // ✅ Play video safely
+  const playVideo = (index) => {
+    stopAllVideos();
+    const video = videoRefs.current[index];
     if (video) {
-      video.pause();
       video.currentTime = 0;
-      video.muted = true;
+      video.muted = !userInteracted; // unmute only after click
+      video.volume = userInteracted ? 1 : 0;
+      video.play().catch(() => {});
+      // Stop after 30 seconds
+      setTimeout(() => {
+        if (!video.paused) video.pause();
+      }, 30000);
     }
   };
+
+  // ✅ When slider changes
+  const handleSlideChange = (swiper) => {
+    const currentIndex = swiper.activeIndex;
+    playVideo(currentIndex);
+  };
+
+  // ✅ Start first video on mount
+  useEffect(() => {
+    playVideo(0);
+  }, []);
 
   return (
     <section className="bg-[#f4eded] py-12 text-center relative">
@@ -87,33 +93,30 @@ const SuccessStories = () => {
 
       <div className="relative px-4 md:px-12">
         <Swiper
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSlideChange={handleSlideChange}
           spaceBetween={30}
           pagination={{ clickable: true }}
-          autoplay={{ delay: 7000, disableOnInteraction: false }}
-          speed={1000}
-          loop={true}
+          loop={false}
+          allowTouchMove={true}
+          speed={800}
           breakpoints={{
             320: { slidesPerView: 1 },
             768: { slidesPerView: 2 },
           }}
-          modules={[Pagination, Autoplay]}
+          modules={[Pagination]}
           className="max-w-7xl mx-auto"
         >
           {awards.map((award, index) => (
             <SwiperSlide key={index}>
-              <div
-                className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 mx-auto cursor-pointer"
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={() => handleMouseLeave(index)}
-              >
+              <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 mx-auto cursor-pointer">
                 <div className="relative w-full aspect-[16/9] overflow-hidden rounded-3xl bg-black">
                   <video
-                    id={`video-${index}`}
+                    ref={(el) => (videoRefs.current[index] = el)}
                     src={award.video}
                     playsInline
-                    preload="auto"
-                    muted
-                    className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-transform duration-500 hover:scale-105"
+                    preload="metadata"
+                    className="absolute inset-0 w-full h-full object-cover rounded-3xl"
                   />
                   {!userInteracted && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-sm sm:text-lg">

@@ -15,7 +15,6 @@ const ThankYouPage = () => {
         video.muted = false;
         await video.play();
       } catch (error) {
-        // If autoplay with sound is blocked, play muted first then unmute
         try {
           video.muted = true;
           await video.play();
