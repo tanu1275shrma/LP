@@ -27,7 +27,7 @@ const FAQ = () => {
     },
     {
       question:
-        "How do I handle difficult audience members or unexpected challenges during a presentation?",
+        "How do I handle difficult audience members during a presentation?",
       answer:
         "Stay calm, acknowledge respectfully, and steer the conversation back to your main topic.",
     },
@@ -48,16 +48,16 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-gradient-to-b from-[#030b30] to-[#000000] text-white py-20 px-6 md:px-16">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-10">
+    <section className="bg-gradient-to-b from-[#030b30] to-[#000000] text-white py-16 px-4 sm:px-8 md:px-16">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-10">
         Frequently Asked Questions!
       </h2>
 
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-4xl mx-auto flex flex-col gap-4 sm:gap-6">
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className={`rounded-xl overflow-hidden shadow-lg transition-all duration-300 ${
+            className={`rounded-2xl overflow-hidden shadow-md transition-all duration-300 ${
               activeIndex === index
                 ? "bg-yellow-400 text-black"
                 : "bg-white text-gray-950"
@@ -65,26 +65,30 @@ const FAQ = () => {
           >
             <button
               onClick={() => toggleFAQ(index)}
-              className={`flex justify-between items-center w-full text-left px-6 py-5 font-semibold text-lg ${
+              className={`flex justify-between items-center w-full text-left px-4 sm:px-6 py-4 sm:py-5 font-semibold text-base sm:text-lg ${
                 activeIndex === index
                   ? "bg-yellow-400"
                   : "bg-[rgb(244,237,237)]"
               }`}
             >
-              <span>{faq.question}</span>
+              <span className="leading-snug">{faq.question}</span>
+
+              {/* ✅ Responsive, balanced icon sizes */}
               {activeIndex === index ? (
-                <MinusCircleIcon className="h-6 w-6 text-black" />
+                <MinusCircleIcon className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-black flex-shrink-0 transition-all duration-200" />
               ) : (
-                <PlusCircleIcon className="h-6 w-6 text-black" />
+                <PlusCircleIcon className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-black flex-shrink-0 transition-all duration-200" />
               )}
             </button>
 
             <div
               className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                activeIndex === index ? "max-h-96 bg-white" : "max-h-0"
+                activeIndex === index
+                  ? "max-h-64 sm:max-h-96 bg-white"
+                  : "max-h-0"
               }`}
             >
-              <p className="px-6 py-5 text-base text-gray-800 leading-relaxed">
+              <p className="px-4 sm:px-6 py-3 sm:py-5 text-sm sm:text-base text-gray-800 leading-relaxed">
                 {faq.answer}
               </p>
             </div>

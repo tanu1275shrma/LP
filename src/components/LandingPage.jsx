@@ -1,9 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import JoinButton from "./JoinButton";
 
 const LandingPage = () => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            videoElement.play();
+          } else {
+            videoElement.pause();
+          }
+        });
+      },
+      { threshold: 0.5 } // at least 50% visible
+    );
+
+    observer.observe(videoElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <section className="bg-gradient-to-b from-[#0a1333] to-black text-white py-12 px-4 md:px-8 lg:px-16">
       {/* ===== HERO HEADING ===== */}
@@ -30,11 +56,11 @@ const LandingPage = () => {
         <div className="flex flex-col items-center w-full">
           <div className="relative w-full aspect-video rounded-2xl overflow-hidden border-8 border-yellow-400">
             <video
+              ref={videoRef}
               src="/images/Intro.mp4"
               controls
-              autoPlay
-              loop
               muted
+              loop
               className="w-full h-full object-cover"
             ></video>
           </div>
@@ -58,7 +84,6 @@ const LandingPage = () => {
         {/* 📅 RIGHT SIDE: WORKSHOP DETAILS */}
         <div className="text-center lg:text-left">
           <div className="grid sm:grid-cols-1 gap-6 max-w-md mx-auto">
-            {/* Date & Time */}
             <div className="bg-[#11192e] border border-gray-700 px-6 py-4 rounded-xl flex items-center gap-3">
               <span className="text-yellow-400 text-2xl">📅</span>
               <div>
@@ -67,7 +92,6 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* Venue & Language */}
             <div className="bg-[#11192e] border border-gray-700 px-6 py-4 rounded-xl flex items-center gap-3">
               <span className="text-yellow-400 text-2xl">🎥</span>
               <div>
@@ -87,37 +111,6 @@ const LandingPage = () => {
           </p>
         </div>
       </div>
-
-      {/* ===== STATS SECTION ===== */}
-      <div className="mt-12 flex justify-center items-center text-center border-t border-gray-700 pt-8 space-x-6 sm:space-x-12 overflow-x-auto scrollbar-hide">
-        <div className="min-w-[100px] sm:min-w-[120px]">
-          <p className="font-bold text-base sm:text-lg">Rated 4.9</p>
-          <p className="text-gray-400 text-xs sm:text-sm">
-            out of 2,949 Reviews
-          </p>
-        </div>
-
-        <div className="min-w-[100px] sm:min-w-[120px]">
-          <p className="font-bold text-base sm:text-lg">6,170+</p>
-          <p className="text-gray-400 text-xs sm:text-sm">Achievers</p>
-        </div>
-
-        <div className="min-w-[100px] sm:min-w-[120px]">
-          <p className="font-bold text-base sm:text-lg">45+</p>
-          <p className="text-gray-400 text-xs sm:text-sm">Live Sessions</p>
-        </div>
-      </div>
-
-      {/* ===== SCROLLBAR HIDE STYLE ===== */}
-      <style jsx global>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 };
