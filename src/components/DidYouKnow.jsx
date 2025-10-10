@@ -1,6 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import JoinButton from "./JoinButton";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -61,6 +62,9 @@ const DidYouKnow = () => {
             </SwiperSlide>
           ))}
         </Swiper>
+      </div>
+      <div className="flex justify-center mt-8">
+        <JoinButton />
       </div>
     </div>
   );

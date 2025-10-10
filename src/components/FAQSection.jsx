@@ -48,7 +48,7 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-[#f4eded] text-gray-900 py-10 px-6 md:px-16">
+    <section className="bg-gradient-to-b from-[#030b30] to-[#000000] text-white py-20 px-6 md:px-16">
       <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-10">
         Frequently Asked Questions!
       </h2>
@@ -60,20 +60,22 @@ const FAQ = () => {
             className={`rounded-xl overflow-hidden shadow-lg transition-all duration-300 ${
               activeIndex === index
                 ? "bg-yellow-400 text-black"
-                : "bg-white text-white"
+                : "bg-white text-gray-950"
             }`}
           >
             <button
               onClick={() => toggleFAQ(index)}
               className={`flex justify-between items-center w-full text-left px-6 py-5 font-semibold text-lg ${
-                activeIndex === index ? "bg-yellow-400" : "bg-gray-950"
+                activeIndex === index
+                  ? "bg-yellow-400"
+                  : "bg-[rgb(244,237,237)]"
               }`}
             >
               <span>{faq.question}</span>
               {activeIndex === index ? (
                 <MinusCircleIcon className="h-6 w-6 text-black" />
               ) : (
-                <PlusCircleIcon className="h-6 w-6 text-white" />
+                <PlusCircleIcon className="h-6 w-6 text-black" />
               )}
             </button>
 

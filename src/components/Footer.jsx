@@ -2,10 +2,9 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-[#02061c] to-[#02051a] text-white py-6 px-6">
+    <footer className="bg-gradient-to-b from-[#06114c] to-[#02051a] text-white py-6 px-6">
       <div className="max-w-6xl mx-auto text-center">
-        {/* ✅ Top Content — centered horizontally, aligned at top */}
-        <div className="text-sm md:text-base text-gray-400 space-x-2 mb-3">
+        <div className="text-sm md:text-base text-gray-200 space-x-2 mb-3">
           <a href="#" className="hover:text-yellow-400 transition">
             Contact Us
           </a>
@@ -28,7 +27,7 @@ export default function Footer() {
         </div>
 
         {/* ✅ Copyright */}
-        <div className="text-gray-400 text-xs md:text-sm mb-4">
+        <div className="text-gray-100 text-xs md:text-sm mb-4">
           © {new Date().getFullYear()}{" "}
           <span className="text-yellow-400 font-semibold">Nilkanth Rathod</span>{" "}
           | All Rights Reserved

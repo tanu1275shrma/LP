@@ -4,7 +4,7 @@ const students = [
   {
     name: "Secret 1",
     title: "Four Quadrant Framework",
-    img: "/images/Quadrant.png",
+    img: "/images/Quadrant1.jpeg",
     earned:
       "Master the art of structuring your speech with four keys - content, delivery, mindset, and audience connection for maximum impact.",
   },

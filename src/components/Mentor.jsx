@@ -3,9 +3,9 @@ import JoinButton from "./JoinButton";
 
 const Mentor = () => {
   return (
-    <section className="bg-gradient-to-b from-[#020826] to-[#000000] text-white py-20 px-6 md:px-16">
+    <section className="bg-gradient-to-b from-[#020826] to-[#080707] text-white py-20 px-6 md:px-16">
       <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-        Meet <span className="text-yellow-300">Mentor</span>
+        Meet Your <span className="text-yellow-300">Speaking Coach</span>
       </h2>
 
       <div className="flex flex-col md:flex-row items-center justify-center gap-10 max-w-6xl mx-auto">

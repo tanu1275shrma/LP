@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const JoinButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,7 +9,8 @@ const JoinButton = () => {
     mobile: "",
     email: "",
   });
-  const [submitted, setSubmitted] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,25 +23,22 @@ const JoinButton = () => {
     existing.push(formData);
     localStorage.setItem("registrations", JSON.stringify(existing));
 
-    setSubmitted(true);
-
     setFormData({ name: "", mobile: "", email: "" });
 
-    setTimeout(() => {
-      setSubmitted(false);
-      setIsOpen(false);
-    }, 2500);
+    setIsOpen(false);
+    navigate("/thankyou");
   };
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <button
+      <motion.button
         onClick={() => setIsOpen(true)}
-        className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold px-8 py-3 rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
+        className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold px-9 py-4 rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
       >
         Join Now For FREE!
-      </button>
+      </motion.button>
 
+      {/* MODAL */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -68,76 +67,65 @@ const JoinButton = () => {
               </h2>
 
               {/* FORM */}
-              {!submitted ? (
-                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                  {/* NAME */}
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">
-                      Full Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      type="text"
-                      placeholder="Enter your full name"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                      required
-                    />
-                  </div>
-
-                  {/* MOBILE */}
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">
-                      Mobile Number (10 Digits Only){" "}
-                      <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      name="mobile"
-                      value={formData.mobile}
-                      onChange={handleChange}
-                      type="tel"
-                      maxLength="10"
-                      placeholder="Prefer WhatsApp Number"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                      required
-                    />
-                  </div>
-
-                  {/* EMAIL */}
-                  <div>
-                    <label className="text-sm font-medium text-gray-700">
-                      Email <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      type="email"
-                      placeholder="Enter your email ID"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                      required
-                    />
-                  </div>
-
-                  {/* BUTTON */}
-                  <button
-                    type="submit"
-                    className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-lg shadow-md transition-transform hover:scale-105"
-                  >
-                    Register Now
-                  </button>
-                </form>
-              ) : (
-                <div className="text-center py-6">
-                  <p className="text-lg font-semibold text-green-600">
-                    ✅ Your response has been submitted successfully!
-                  </p>
-                  <p className="text-sm text-gray-600 mt-2">
-                    We'll contact you soon.
-                  </p>
+              <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+                {/* NAME */}
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Enter your full name"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    required
+                  />
                 </div>
-              )}
+
+                {/* MOBILE */}
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Mobile Number (10 Digits Only){" "}
+                    <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    type="tel"
+                    maxLength="10"
+                    placeholder="Prefer WhatsApp Number"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    required
+                  />
+                </div>
+
+                {/* EMAIL */}
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    type="email"
+                    placeholder="Enter your email ID"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    required
+                  />
+                </div>
+
+                {/* SUBMIT BUTTON */}
+                <button
+                  type="submit"
+                  className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-lg shadow-md transition-transform hover:scale-105"
+                >
+                  Register Now
+                </button>
+              </form>
 
               {/* FOOTER NOTE */}
               <p className="text-center mt-4 text-sm italic">
