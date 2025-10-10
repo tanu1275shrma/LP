@@ -40,7 +40,7 @@ const Mentor = () => {
             empowers individuals to speak with clarity, confidence, and
             charisma. With a passion for leadership and belief transformation,
             he has trained over{" "}
-            <span className="font-semibold text-yellow-400">6000+</span>{" "}
+            <span className="font-semibold text-yellow-400">3000+</span>{" "}
             speakers to conquer stage fear and express with impact. His powerful
             frameworks and personalized coaching help learners not only
             communicate effectively but also monetize their voice through

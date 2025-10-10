@@ -26,18 +26,19 @@ const students = [
 
 const Secrets = () => {
   return (
-    <section className="bg-[#f8f0ee] py-20 px-18">
-      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-24 text-gray-800">
+    <section className="bg-[#f8f0ee] py-16 sm:py-20 px-4 sm:px-8">
+      <h2 className="text-2xl sm:text-4xl font-bold text-center mb-16 sm:mb-24 text-gray-800">
         What You Will Learn in 90 Minutes
       </h2>
 
-      <div className="grid gap-16 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+      <div className="grid gap-12 sm:gap-16 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
         {students.map((student, index) => (
           <div
             key={index}
-            className="relative bg-[#0e1526] text-white rounded-2xl pt-24 pb-10 px-6 shadow-lg text-center"
+            className="relative bg-[#0e1526] text-white rounded-2xl pt-20 sm:pt-24 pb-6 sm:pb-10 px-4 sm:px-6 shadow-lg text-center transition-all duration-300 hover:scale-[1.02]"
           >
-            <div className="absolute -top-14 left-1/2 -translate-x-1/2 w-40 h-40 rounded-xl overflow-hidden shadow-lg bg-pink-200">
+            {/* Image box */}
+            <div className="absolute -top-10 sm:-top-14 left-1/2 -translate-x-1/2 w-28 h-28 sm:w-40 sm:h-40 rounded-xl overflow-hidden shadow-lg bg-pink-200">
               <img
                 src={student.img}
                 alt={student.name}
@@ -45,12 +46,18 @@ const Secrets = () => {
               />
             </div>
 
-            <h3 className="text-xl font-semibold mt-6">{student.name}</h3>
-            <div className="w-10 h-[2px] bg-white/30 mx-auto my-3"></div>
-            <p className="text-lg mb-5 text-gray-00">{student.title}</p>
+            {/* Title */}
+            <h3 className="text-lg sm:text-xl font-semibold mt-4 sm:mt-6">
+              {student.name}
+            </h3>
+            <div className="w-10 h-[2px] bg-white/30 mx-auto my-2 sm:my-3"></div>
+            <p className="text-base sm:text-lg mb-4 sm:mb-5 text-gray-200">
+              {student.title}
+            </p>
 
-            <div className="border border-gray-500 rounded-xl py-4 px-5">
-              <p className="text-white text-base leading-relaxed">
+            {/* Description */}
+            <div className="border border-gray-500 rounded-xl py-3 sm:py-4 px-4 sm:px-5">
+              <p className="text-white text-sm sm:text-base leading-relaxed">
                 {student.earned}
               </p>
             </div>

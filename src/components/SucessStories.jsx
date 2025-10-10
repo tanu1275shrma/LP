@@ -8,12 +8,22 @@ import JoinButton from "./JoinButton";
 
 const SuccessStories = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+
   const [userInteracted, setUserInteracted] = useState(false);
 
+  // 🧠 Wait for user interaction once
   useEffect(() => {
     const enableSound = () => {
       setUserInteracted(true);
-      console.log("Sound unlocked after user interaction");
+      console.log("🔊 ");
+
+      // Unmute all existing videos
+      document.querySelectorAll("video").forEach((v) => {
+        v.muted = false;
+        v.volume = 1;
+      });
+
+      // Remove listeners (only need to trigger once)
       document.removeEventListener("click", enableSound);
       document.removeEventListener("keydown", enableSound);
     };
@@ -28,28 +38,13 @@ const SuccessStories = () => {
   }, []);
 
   const awards = [
-    {
-      video: "/images/Yogesh.mp4",
-      name: "Yogesh Rude",
-      achievement: "Content Creator & Blogger",
-    },
-    {
-      video: "/images/Nilma.mp4",
-      name: "Nilima Kirkire",
-      achievement: "NLP and YOGA COACH",
-    },
-    {
-      video: "/images/Manoj.mp4",
-      name: "Manoj Chaudhar",
-      achievement: "Digital Direct Selling Coach",
-    },
-    {
-      video: "/images/Rajendra.mp4",
-      name: "Rajendra Bali",
-      achievement: "High School Teacher",
-    },
+    { video: "/images/Yogesh.mp4" },
+    { video: "/images/Nilma.mp4" },
+    { video: "/images/Manoj.mp4" },
+    { video: "/images/Rajendra.mp4" },
   ];
 
+  // 🎬 Play video with sound when hovered
   const handleMouseEnter = async (index) => {
     setHoveredIndex(index);
     const video = document.getElementById(`video-${index}`);
@@ -64,7 +59,7 @@ const SuccessStories = () => {
         video.muted = false;
         video.volume = 1;
       } else {
-        video.muted = true; // autoplay safe
+        video.muted = true; // autoplay-safe before first click
       }
 
       await video.play();
@@ -73,7 +68,7 @@ const SuccessStories = () => {
     }
   };
 
-  // ✅ Stop video on hover leave
+  // 🛑 Pause video when hover ends
   const handleMouseLeave = (index) => {
     setHoveredIndex(null);
     const video = document.getElementById(`video-${index}`);
@@ -107,7 +102,7 @@ const SuccessStories = () => {
           {awards.map((award, index) => (
             <SwiperSlide key={index}>
               <div
-                className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 mx-auto"
+                className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 mx-auto cursor-pointer"
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={() => handleMouseLeave(index)}
               >
@@ -115,22 +110,16 @@ const SuccessStories = () => {
                   <video
                     id={`video-${index}`}
                     src={award.video}
-                    loop
                     playsInline
                     preload="auto"
                     muted
                     className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-transform duration-500 hover:scale-105"
                   />
-                </div>
-
-                {/* 🧾 Text Section */}
-                <div className="p-5">
-                  <h3 className="font-bold text-xl italic text-gray-900 mb-2">
-                    {award.name}
-                  </h3>
-                  <div className="border border-gray-400 bg-gray-900 rounded-2xl py-2 px-4 flex items-center justify-center gap-2 text-white font-bold">
-                    {award.achievement}
-                  </div>
+                  {!userInteracted && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-sm sm:text-lg">
+                      🔈 Click anywhere to enable sound
+                    </div>
+                  )}
                 </div>
               </div>
             </SwiperSlide>
@@ -146,7 +135,7 @@ const SuccessStories = () => {
         </p>
       </div>
 
-      {/* Pagination Styling */}
+      {/* Swiper pagination styling */}
       <style jsx global>{`
         .swiper-pagination {
           position: relative !important;
