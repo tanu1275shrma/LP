@@ -1,11 +1,22 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { CheckCircle2, CalendarDays } from "lucide-react";
 
 const ThankYouPage = () => {
   const videoRef = useRef(null);
+  const navigate = useNavigate();
 
+  // ✅ Redirect on refresh
+  useEffect(() => {
+    // If user directly visits or refreshes /thankyou
+    if (performance.getEntriesByType("navigation")[0].type === "reload") {
+      navigate("/", { replace: true }); // go back to home
+    }
+  }, [navigate]);
+
+  // ✅ Video autoplay logic
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -29,7 +40,6 @@ const ThankYouPage = () => {
 
     tryPlay();
 
-    // Auto pause/play when scrolling
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
