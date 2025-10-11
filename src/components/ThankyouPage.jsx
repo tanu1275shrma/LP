@@ -1,25 +1,24 @@
 import React, { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CheckCircle2, CalendarDays } from "lucide-react";
 
 const ThankYouPage = () => {
   const videoRef = useRef(null);
   const navigate = useNavigate();
-  const location = useLocation();
 
-  // ✅ Redirect only when user refreshes manually
+  // ✅ Redirect only if the page is refreshed manually
   useEffect(() => {
     const navigation = performance.getEntriesByType("navigation")[0];
     const isReload = navigation && navigation.type === "reload";
 
     if (isReload) {
-      // If page is refreshed manually, redirect to home
+      // If the page is refreshed, go back to home
       navigate("/", { replace: true });
     }
   }, [navigate]);
 
-  // ✅ Autoplay video (safe across browsers)
+  // ✅ Autoplay video safely across browsers
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -41,7 +40,7 @@ const ThankYouPage = () => {
 
     tryPlay();
 
-    // Pause when not visible
+    // Pause video when not visible
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) video.play().catch(() => {});
@@ -56,7 +55,7 @@ const ThankYouPage = () => {
 
   return (
     <>
-      {/* ✅ Facebook Meta Pixel */}
+      {/* ✅ Facebook Pixel */}
       <Helmet>
         <script>
           {`
