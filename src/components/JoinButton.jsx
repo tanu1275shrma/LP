@@ -42,7 +42,7 @@ const JoinButton = () => {
     // Small delay before redirect
     setTimeout(() => {
       navigate("/thankyou", { replace: true });
-    }, 200);
+    });
   };
 
   return (
