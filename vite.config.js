@@ -1,12 +1,10 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
 
-// ✅ This ensures your React Router routes (like /thank-you) work even on refresh
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
   server: {
-    historyApiFallback: true, // Fixes 404 in local dev
+    historyApiFallback: true,
   },
   build: {
     outDir: "dist",

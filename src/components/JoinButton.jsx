@@ -20,15 +20,13 @@ const JoinButton = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Save data in localStorage
     const existing = JSON.parse(localStorage.getItem("registrations")) || [];
     existing.push(formData);
     localStorage.setItem("registrations", JSON.stringify(existing));
 
-    // Mark that a new registration just happened
-    localStorage.setItem("justRegistered", "true");
+    // Save flag for thankyou page
+    localStorage.setItem("showThankYou", "true");
 
-    // Reset form
     setFormData({
       name: "",
       whatsapp: "",
@@ -36,18 +34,12 @@ const JoinButton = () => {
       profession: "",
     });
 
-    // Close modal smoothly
     setIsOpen(false);
-
-    // Small delay before redirect
-    setTimeout(() => {
-      navigate("/thankyou", { replace: true });
-    });
+    navigate("/thankyou");
   };
 
   return (
     <div className="flex flex-col items-center gap-4">
-      {/* Join Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
         className="bg-gradient-to-r from-yellow-400 to-orange-600 text-white font-semibold px-9 py-4 rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
@@ -55,7 +47,6 @@ const JoinButton = () => {
         Book Now For FREE!
       </motion.button>
 
-      {/* MODAL */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -70,7 +61,6 @@ const JoinButton = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
             >
-              {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
                 className="absolute top-3 right-4 text-gray-500 hover:text-gray-800 text-2xl"
@@ -78,81 +68,54 @@ const JoinButton = () => {
                 ×
               </button>
 
-              {/* Heading */}
               <h2 className="text-2xl font-bold text-center mb-6">
                 Book Your Spot Now
               </h2>
 
-              {/* Form */}
               <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                {/* Full Name */}
-                <div>
-                  <label className="text-sm font-medium text-gray-700">
-                    Full Name
-                  </label>
-                  <input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Full Name"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-                    required
-                  />
-                </div>
+                <input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Full Name"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  required
+                />
 
-                {/* WhatsApp Number */}
-                <div>
-                  <label className="text-sm font-medium text-gray-700">
-                    WhatsApp Number <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="whatsapp"
-                    value={formData.whatsapp}
-                    onChange={handleChange}
-                    type="tel"
-                    placeholder="WhatsApp Number"
-                    maxLength="10"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-                    required
-                  />
-                </div>
+                <input
+                  name="whatsapp"
+                  value={formData.whatsapp}
+                  onChange={handleChange}
+                  type="tel"
+                  placeholder="WhatsApp Number"
+                  maxLength="10"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  required
+                />
 
-                {/* Email */}
-                <div>
-                  <label className="text-sm font-medium text-gray-700">
-                    Email <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    type="email"
-                    placeholder="Email"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-                    required
-                  />
-                </div>
+                <input
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  type="email"
+                  placeholder="Email"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  required
+                />
 
-                {/* Profession */}
-                <div>
-                  <label className="text-sm font-medium text-gray-700">
-                    Profession
-                  </label>
-                  <input
-                    name="profession"
-                    value={formData.profession}
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Profession"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-                  />
-                </div>
+                <input
+                  name="profession"
+                  value={formData.profession}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Profession"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                />
 
-                {/* Submit Button */}
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-yellow-400 to-orange-600 hover:from-yellow-500 hover:to-orange-700 text-white font-semibold py-3 rounded-lg shadow-md transition-transform hover:scale-105"
+                  className="bg-gradient-to-r from-yellow-400 to-orange-600 text-white font-semibold py-3 rounded-lg"
                 >
                   Book Now
                 </button>
