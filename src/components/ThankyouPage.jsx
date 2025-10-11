@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -77,7 +75,7 @@ const ThankYouPage = () => {
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '2259159114243836');
-            fbq('track', 'PageView');
+            fbq('track', 'CompleteRegistration');
           `}
         </script>
 
