@@ -13,17 +13,15 @@ const ThankYouPage = () => {
     const navigation = performance.getEntriesByType("navigation")[0];
     const isReload = navigation.type === "reload";
 
-    // If this page was *visited normally*, mark it visited.
-    if (!isReload) {
-      sessionStorage.setItem("visitedThankYou", "true");
-    }
-
-    // If user manually refreshed the Thank You page
-    if (isReload && sessionStorage.getItem("visitedThankYou") === "true") {
-      sessionStorage.removeItem("visitedThankYou");
+    // When page reloads directly (not from form navigation)
+    if (isReload) {
+      // ✅ Option 1: Redirect back to home page
       navigate("/", { replace: true });
+
+      // ✅ Option 2 (alternative): Uncomment this if you want it to stay on same page
+      // window.location.href = "/";
     }
-  }, [navigate, location]);
+  }, [navigate]);
 
   // ✅ Autoplay video (safe across browsers)
   useEffect(() => {
