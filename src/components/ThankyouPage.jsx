@@ -11,15 +11,11 @@ const ThankYouPage = () => {
   // ✅ Redirect only when user refreshes manually
   useEffect(() => {
     const navigation = performance.getEntriesByType("navigation")[0];
-    const isReload = navigation.type === "reload";
+    const isReload = navigation && navigation.type === "reload";
 
-    // When page reloads directly (not from form navigation)
     if (isReload) {
-      // ✅ Option 1: Redirect back to home page
+      // If page is refreshed manually, redirect to home
       navigate("/", { replace: true });
-
-      // ✅ Option 2 (alternative): Uncomment this if you want it to stay on same page
-      // window.location.href = "/";
     }
   }, [navigate]);
 
