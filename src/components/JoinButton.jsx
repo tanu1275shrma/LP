@@ -20,10 +20,15 @@ const JoinButton = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Save data in localStorage
     const existing = JSON.parse(localStorage.getItem("registrations")) || [];
     existing.push(formData);
     localStorage.setItem("registrations", JSON.stringify(existing));
 
+    // Mark that a new registration just happened
+    localStorage.setItem("justRegistered", "true");
+
+    // Reset form
     setFormData({
       name: "",
       whatsapp: "",
@@ -31,8 +36,13 @@ const JoinButton = () => {
       profession: "",
     });
 
+    // Close modal smoothly
     setIsOpen(false);
-    navigate("/thankyou");
+
+    // Small delay before redirect
+    setTimeout(() => {
+      navigate("/thankyou", { replace: true });
+    }, 200);
   };
 
   return (
@@ -73,7 +83,7 @@ const JoinButton = () => {
                 Book Your Spot Now
               </h2>
 
-              {/* NEW FORM */}
+              {/* Form */}
               <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 {/* Full Name */}
                 <div>
@@ -142,7 +152,7 @@ const JoinButton = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="bg-gradient-to-r from-yellow-400 to-orange-600 hover:bg-green-600 text-white font-semibold py-3 rounded-lg shadow-md transition-transform hover:scale-105"
+                  className="bg-gradient-to-r from-yellow-400 to-orange-600 hover:from-yellow-500 hover:to-orange-700 text-white font-semibold py-3 rounded-lg shadow-md transition-transform hover:scale-105"
                 >
                   Book Now
                 </button>
