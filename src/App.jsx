@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import LandingPage from "./components/LandingPage.jsx";
@@ -40,7 +40,6 @@ function App() {
           `}
         </script>
 
-        {/* ✅ FIX: noscript content must be a plain string, not JSX */}
         <noscript>{`
           <img height="1" width="1" style="display:none"
           src="https://www.facebook.com/tr?id=2259159114243836&ev=PageView&noscript=1"/>
@@ -48,30 +47,28 @@ function App() {
       </Helmet>
       {/* ✅ End Meta Pixel Code */}
 
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <GlobalBanner />
-                <LandingPage />
-                <Secrets />
-                <DidYouKnow />
-                <Benefits />
-                <Bonus />
-                <WhoIsThisFor />
-                <Mentor />
-                <SuccessStories />
-                <ReviewSection />
-                <FAQ />
-                <Footer />
-              </>
-            }
-          />
-          <Route path="/thankyou" element={<ThankYouPage />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <GlobalBanner />
+              <LandingPage />
+              <Secrets />
+              <DidYouKnow />
+              <Benefits />
+              <Bonus />
+              <WhoIsThisFor />
+              <Mentor />
+              <SuccessStories />
+              <ReviewSection />
+              <FAQ />
+              <Footer />
+            </>
+          }
+        />
+        <Route path="/thankyou" element={<ThankYouPage />} />
+      </Routes>
     </>
   );
 }

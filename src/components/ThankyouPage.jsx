@@ -1,13 +1,17 @@
+// src/components/ThankYou.jsx
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-export default function ThankYou() {
+const ThankYou = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const show = localStorage.getItem("showThankYou");
-    if (!show) navigate("/");
+    if (!show) {
+      // If opened directly without registration, go home
+      navigate("/");
+    }
   }, [navigate]);
 
   return (
@@ -57,4 +61,6 @@ export default function ThankYou() {
       </button>
     </div>
   );
-}
+};
+
+export default ThankYou;
