@@ -6,8 +6,9 @@ const JoinButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    mobile: "",
+    whatsapp: "",
     email: "",
+    profession: "",
   });
 
   const navigate = useNavigate();
@@ -23,7 +24,12 @@ const JoinButton = () => {
     existing.push(formData);
     localStorage.setItem("registrations", JSON.stringify(existing));
 
-    setFormData({ name: "", mobile: "", email: "" });
+    setFormData({
+      name: "",
+      whatsapp: "",
+      email: "",
+      profession: "",
+    });
 
     setIsOpen(false);
     navigate("/thankyou");
@@ -31,11 +37,12 @@ const JoinButton = () => {
 
   return (
     <div className="flex flex-col items-center gap-4">
+      {/* Join Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold px-9 py-4 rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
+        className="bg-gradient-to-r from-yellow-400 to-orange-600 text-white font-semibold px-9 py-4 rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
       >
-        Join Now For FREE!
+        Book Now For FREE!
       </motion.button>
 
       {/* MODAL */}
@@ -53,7 +60,7 @@ const JoinButton = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
             >
-              {/* CLOSE BUTTON */}
+              {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
                 className="absolute top-3 right-4 text-gray-500 hover:text-gray-800 text-2xl"
@@ -61,48 +68,47 @@ const JoinButton = () => {
                 ×
               </button>
 
-              {/* HEADING */}
+              {/* Heading */}
               <h2 className="text-2xl font-bold text-center mb-6">
-                Register Now For Free
+                Book Your Spot Now
               </h2>
 
-              {/* FORM */}
+              {/* NEW FORM */}
               <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                {/* NAME */}
+                {/* Full Name */}
                 <div>
                   <label className="text-sm font-medium text-gray-700">
-                    Full Name <span className="text-red-500">*</span>
+                    Full Name
                   </label>
                   <input
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     type="text"
-                    placeholder="Enter your full name"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    placeholder="Full Name"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
                     required
                   />
                 </div>
 
-                {/* MOBILE */}
+                {/* WhatsApp Number */}
                 <div>
                   <label className="text-sm font-medium text-gray-700">
-                    Mobile Number (10 Digits Only){" "}
-                    <span className="text-red-500">*</span>
+                    WhatsApp Number <span className="text-red-500">*</span>
                   </label>
                   <input
-                    name="mobile"
-                    value={formData.mobile}
+                    name="whatsapp"
+                    value={formData.whatsapp}
                     onChange={handleChange}
                     type="tel"
+                    placeholder="WhatsApp Number"
                     maxLength="10"
-                    placeholder="Prefer WhatsApp Number"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
                     required
                   />
                 </div>
 
-                {/* EMAIL */}
+                {/* Email */}
                 <div>
                   <label className="text-sm font-medium text-gray-700">
                     Email <span className="text-red-500">*</span>
@@ -112,26 +118,35 @@ const JoinButton = () => {
                     value={formData.email}
                     onChange={handleChange}
                     type="email"
-                    placeholder="Enter your email ID"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    placeholder="Email"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
                     required
                   />
                 </div>
 
-                {/* SUBMIT BUTTON */}
+                {/* Profession */}
+                <div>
+                  <label className="text-sm font-medium text-gray-700">
+                    Profession
+                  </label>
+                  <input
+                    name="profession"
+                    value={formData.profession}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Profession"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                  />
+                </div>
+
+                {/* Submit Button */}
                 <button
                   type="submit"
-                  className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-lg shadow-md transition-transform hover:scale-105"
+                  className="bg-gradient-to-r from-yellow-400 to-orange-600 hover:bg-green-600 text-white font-semibold py-3 rounded-lg shadow-md transition-transform hover:scale-105"
                 >
-                  Register Now
+                  Book Now
                 </button>
               </form>
-
-              {/* FOOTER NOTE */}
-              <p className="text-center mt-4 text-sm italic">
-                <span className="text-gray-700">Registrations End on</span>{" "}
-                <span className="text-red-600 font-semibold">09 OCT</span>
-              </p>
             </motion.div>
           </motion.div>
         )}
