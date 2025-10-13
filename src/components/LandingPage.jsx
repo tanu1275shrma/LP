@@ -79,7 +79,7 @@ const LandingPage = () => {
         <div className="flex flex-col items-center text-center lg:text-left">
           <div className="grid grid-cols-2 gap-5 w-full max-w-md sm:max-w-lg md:max-w-xl">
             {[
-              { icon: "📅", label: "Date", value: "16th October" },
+              { icon: "📅", label: "Date", value: "16 October" },
               { icon: "⏰", label: "Time", value: "07:00 PM" },
               { icon: "🎥", label: "Venue", value: "Zoom" },
               { icon: "🌐", label: "Language", value: "English | Hindi" },
