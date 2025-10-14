@@ -1,4 +1,3 @@
-// src/components/ThankYou.jsx
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -43,7 +42,7 @@ const ThankYou = () => {
       </Helmet>
 
       <video
-        src="/thankyou-video.mp4"
+        src="/images/video.mp4"
         autoPlay
         loop
         muted
