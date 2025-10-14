@@ -59,7 +59,7 @@ const ReviewSection = () => {
       </div>
 
       {/* Pagination Dots Styling */}
-      <style jsx global>{`
+      <style>{`
         .swiper-pagination {
           position: relative !important;
           margin-top: 1.5rem !important;
