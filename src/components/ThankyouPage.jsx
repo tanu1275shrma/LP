@@ -8,14 +8,19 @@ const ThankYou = () => {
   useEffect(() => {
     const show = localStorage.getItem("showThankYou");
     if (!show) {
-      // If opened directly without registration, go home
-      navigate("/");
+      localStorage.setItem("showThankYou", "true");
     }
-  }, [navigate]);
+  }, []);
+
+  const handleBackHome = () => {
+    localStorage.removeItem("showThankYou");
+    navigate("/");
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
+    <div className="flex items-center justify-center min-h-screen bg-black text-white p-4 md:p-8">
       <Helmet>
+        {/* Facebook Pixel */}
         <script>
           {`
             !function(f,b,e,v,n,t,s)
@@ -31,7 +36,7 @@ const ThankYou = () => {
               s.parentNode.insertBefore(t,s)}
             (window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '2259159114243836');
-            fbq('track', 'PageView');
+            fbq('track', 'RegistrationComplete');
           `}
         </script>
 
@@ -41,23 +46,37 @@ const ThankYou = () => {
         `}</noscript>
       </Helmet>
 
-      <video
-        src="/images/video.mp4"
-        autoPlay
-        loop
-        muted
-        className="w-full max-w-3xl rounded-lg shadow-lg"
-      />
-      <h1 className="text-3xl font-bold mt-6">Thank You for Registering!</h1>
-      <button
-        onClick={() => {
-          localStorage.removeItem("showThankYou");
-          navigate("/");
-        }}
-        className="mt-6 bg-yellow-500 text-black px-6 py-3 rounded-lg hover:bg-yellow-600 transition"
-      >
-        Back to Home
-      </button>
+      {/* 🌟 Glowing Container */}
+      <div className="flex flex-col md:flex-row items-center justify-between bg-gradient-to-b from-gray-900 via-black to-gray-900 rounded-3xl border border-yellow-400 shadow-[0_0_30px_rgba(255,255,0,0.6)] p-6 md:p-10 max-w-6xl w-full">
+        {/* 🎥 Left Side - Video */}
+        <div className="flex-1 flex justify-center mb-8 md:mb-0">
+          <video
+            src="/images/video.mp4"
+            controls
+            autoPlay
+            loop
+            className="w-full max-w-md rounded-2xl shadow-lg border border-yellow-300"
+          />
+        </div>
+
+        {/* 💬 Right Side - Text */}
+        <div className="flex-1 text-center md:text-left md:pl-10">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-yellow-400 mb-4">
+            ThankYou for Registering!
+          </h1>
+          <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
+            There’s so much more to explore and learn ahead. Through this course
+            and our upcoming webinars, we’ll grow, learn, and achieve together.
+            <br />
+          </p>
+          <button
+            onClick={handleBackHome}
+            className="bg-yellow-500 text-black font-semibold px-6 py-3 rounded-lg hover:bg-yellow-600 transition-all"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

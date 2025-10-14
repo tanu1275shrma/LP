@@ -47,12 +47,12 @@ export default function GlobalBanner() {
               <span className="text-red-600 font-bold glow-text">
                 Only 4 Seats Left
               </span>
-              <span className="italic text-base sm:text-lg text-black font-semibold">
+              <p className="italic text-base sm:text-lg text-black font-semibold">
                 Registrations End on{" "}
                 <span className="text-red-600 font-bold not-italic">
                   15 OCT
                 </span>
-              </span>
+              </p>
             </p>
           </div>
           <JoinButton />
