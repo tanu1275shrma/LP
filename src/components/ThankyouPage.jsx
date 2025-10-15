@@ -71,14 +71,18 @@ const ThankYou = () => {
             <br />
           </p>
 
-          {/* ✅ WhatsApp Button with Icon */}
-          <button
-            onClick={handleJoinWhatsApp}
-            className="flex items-center justify-center gap-2 bg-green-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-700 transition-all shadow-md hover:shadow-lg mx-auto md:mx-0"
-          >
-            <FaWhatsapp size={23} />
-            Join Our WhatsApp Community for Webinar Details
-          </button>
+          {/* ✅ WhatsApp Button - Responsive */}
+          <div className="flex justify-center md:justify-start">
+            <button
+              onClick={handleJoinWhatsApp}
+              className="flex items-center justify-center gap-2 bg-green-500 text-white font-semibold px-5 py-3 rounded-lg hover:bg-green-700 transition-all shadow-md hover:shadow-lg text-sm sm:text-base md:text-lg w-full sm:w-auto max-w-xs md:max-w-none"
+            >
+              <FaWhatsapp size={22} className="flex-shrink-0" />
+              <span className="truncate">
+                Join WhatsApp for Webinar Details
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

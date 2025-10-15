@@ -76,8 +76,8 @@ const LandingPage = () => {
         </div>
 
         {/* 📅 RIGHT SIDE: WORKSHOP DETAILS */}
-        <div className="flex flex-col items-center text-center lg:text-left">
-          <div className="grid grid-cols-2 gap-5 w-full max-w-md sm:max-w-lg md:max-w-xl">
+        <div className="flex flex-col items-center text-center  lg:text-left ">
+          <div className="grid  grid-cols-2 gap-5 w-full max-w-md sm:max-w-lg md:max-w-xl">
             {[
               { icon: "📅", label: "Date", value: "16 October" },
               { icon: "⏰", label: "Time", value: "07:00 PM" },
