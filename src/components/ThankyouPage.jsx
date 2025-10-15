@@ -79,7 +79,7 @@ const ThankYou = () => {
             >
               <FaWhatsapp size={22} className="flex-shrink-0" />
               <span className="truncate">
-                Join WhatsApp for Webinar Details
+                Join our Whatsapp Community for Webinar Details
               </span>
             </button>
           </div>
