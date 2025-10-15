@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { FaWhatsapp } from "react-icons/fa"; // ✅ WhatsApp icon import
 
 const ThankYou = () => {
-  const navigate = useNavigate();
-
   useEffect(() => {
     const show = localStorage.getItem("showThankYou");
     if (!show) {
@@ -12,9 +10,12 @@ const ThankYou = () => {
     }
   }, []);
 
-  const handleBackHome = () => {
-    localStorage.removeItem("showThankYou");
-    navigate("/");
+  // ✅ Function to open WhatsApp community link
+  const handleJoinWhatsApp = () => {
+    window.open(
+      "https://chat.whatsapp.com/CjWTps1mE9S6OCgd9oLucK?mode=wwc",
+      "_blank"
+    );
   };
 
   return (
@@ -62,18 +63,21 @@ const ThankYou = () => {
         {/* 💬 Right Side - Text */}
         <div className="flex-1 text-center md:text-left md:pl-10">
           <h1 className="text-3xl md:text-5xl font-extrabold text-yellow-400 mb-4">
-            ThankYou for Registering!
+            Thank You for Registering!
           </h1>
           <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
             There’s so much more to explore and learn ahead. Through this course
             and our upcoming webinars, we’ll grow, learn, and achieve together.
             <br />
           </p>
+
+          {/* ✅ WhatsApp Button with Icon */}
           <button
-            onClick={handleBackHome}
-            className="bg-yellow-500 text-black font-semibold px-6 py-3 rounded-lg hover:bg-yellow-600 transition-all"
+            onClick={handleJoinWhatsApp}
+            className="flex items-center justify-center gap-2 bg-green-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-700 transition-all shadow-md hover:shadow-lg mx-auto md:mx-0"
           >
-            Back to Home
+            <FaWhatsapp size={23} />
+            Join Our WhatsApp Community for Webinar Details
           </button>
         </div>
       </div>
