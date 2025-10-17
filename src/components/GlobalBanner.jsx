@@ -50,7 +50,7 @@ export default function GlobalBanner() {
               <p className="italic text-base sm:text-lg text-black font-semibold">
                 Registrations End on{" "}
                 <span className="text-red-600 font-bold not-italic">
-                  15 OCT
+                  17 OCT
                 </span>
               </p>
             </p>

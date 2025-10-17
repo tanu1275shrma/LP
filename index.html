@@ -6,8 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SpeakForSuccess</title>
   </head>
-  <body class="">
+  <body>
+    <div id="webinar_date" style="display: none">
+      {{ custom_values.webinar_date }}
+    </div>
+    <div id="webinar_time" style="display: none">
+      {{ custom_values.webinar_time }}
+    </div>
+    <div id="zoom_link" style="display: none">
+      {{ custom_values.zoom_link }}
+    </div>
+
+    <!-- React Root -->
     <div id="root"></div>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

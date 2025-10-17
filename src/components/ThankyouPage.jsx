@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { FaWhatsapp } from "react-icons/fa"; // ✅ WhatsApp icon import
 
-const ThankYou = () => {
+const ThankyouPage = () => {
   useEffect(() => {
     const show = localStorage.getItem("showThankYou");
     if (!show) {
@@ -89,4 +89,4 @@ const ThankYou = () => {
   );
 };
 
-export default ThankYou;
+export default ThankyouPage;

@@ -1,19 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const JoinButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
+  // Redirect to Thank You Page when Book Now is clicked
+  const handleBookNow = () => {
+    window.location.href = "/thankyou";
+  };
+
+  // Load external script for form
+  useEffect(() => {
+    if (isOpen) {
+      const script = document.createElement("script");
+      script.src = "https://ns.myprofunnels.com/js/form_embed.js";
+      script.async = true;
+      document.body.appendChild(script);
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, [isOpen]);
+
   return (
     <div className="flex flex-col items-center gap-4">
-      {/* Main Call-To-Action Button */}
+      {/* Main Button */}
       <motion.button
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpen}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="bg-gradient-to-r from-yellow-400 to-orange-600 text-white font-semibold px-8 sm:px-10 py-3 sm:py-4 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.2)] text-base sm:text-lg transition-all duration-300"
+        className="bg-gradient-to-r from-yellow-400 to-orange-600 text-white font-semibold px-8 sm:px-10 py-3 sm:py-4 rounded-full shadow-lg text-base sm:text-lg transition-all duration-300"
       >
-        Book Now For FREE!
+        Join Now
       </motion.button>
 
       {/* Popup Modal */}
@@ -26,7 +47,7 @@ const JoinButton = () => {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="relative bg-white/90 backdrop-blur-xl rounded-3xl p-5 sm:p-8 w-full max-w-[95%] sm:max-w-lg md:max-w-2xl shadow-2xl border border-white/40 overflow-hidden"
+              className="relative bg-white rounded-3xl p-5 sm:p-8 w-full max-w-[95%] sm:max-w-lg md:max-w-2xl shadow-2xl overflow-hidden"
               initial={{ scale: 0.9, opacity: 0, y: 40 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 40 }}
@@ -34,31 +55,21 @@ const JoinButton = () => {
             >
               {/* Close Button */}
               <button
-                onClick={() => setIsOpen(false)}
-                className="absolute top-3 right-4 text-gray-600 hover:text-gray-900 text-3xl leading-none"
+                onClick={handleClose}
+                className="absolute top-3 right-4 text-gray-600 hover:text-gray-900 text-2xl"
               >
                 ×
               </button>
 
-              {/* Heading */}
-              <div className="text-center mb-4">
-                <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-orange-500 to-yellow-400 text-transparent bg-clip-text">
-                  Reserve Your Free Spot
-                </h2>
-                <p className="text-black mt-2 text-2xl sm:text-sm">
-                  Limited seats available — register now!
-                </p>
-              </div>
-
-              {/* Responsive Iframe Container */}
-              <div className="w-full h-[480px] sm:h-[550px] md:h-[600px] overflow-hidden rounded-2xl border border-gray-200 shadow-inner bg-white">
+              {/* Embedded Form */}
+              <div className="w-full h-[480px] sm:h-[520px] md:h-[580px] overflow-hidden rounded-xl border border-gray-200 bg-white">
                 <iframe
                   src="https://ns.myprofunnels.com/widget/form/dDQbNsT9bPJelKvn1Axp"
                   style={{
                     width: "100%",
                     height: "100%",
                     border: "none",
-                    borderRadius: "12px",
+                    borderRadius: "3px",
                   }}
                   id="inline-dDQbNsT9bPJelKvn1Axp"
                   data-layout="{'id':'INLINE'}"
@@ -69,17 +80,26 @@ const JoinButton = () => {
                   data-deactivation-type="neverDeactivate"
                   data-deactivation-value=""
                   data-form-name="Free Webinar Lead"
-                  data-height="undefined"
+                  data-height="482"
                   data-layout-iframe-id="inline-dDQbNsT9bPJelKvn1Axp"
                   data-form-id="dDQbNsT9bPJelKvn1Axp"
                   title="Free Webinar Lead"
                 ></iframe>
               </div>
 
-              {/* External Script */}
-              <script src="https://ns.myprofunnels.com/js/form_embed.js"></script>
+              {/* Book Now Button */}
+              <div className="flex justify-center mt-5">
+                <motion.button
+                  onClick={handleBookNow}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-full shadow-md transition-all duration-300"
+                >
+                  Book Now
+                </motion.button>
+              </div>
 
-              {/* Soft Glow Effect */}
+              {/* Glow Effect */}
               <div className="absolute inset-0 rounded-3xl pointer-events-none bg-gradient-to-r from-yellow-400/20 to-orange-500/20 blur-3xl"></div>
             </motion.div>
           </motion.div>
