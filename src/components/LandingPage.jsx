@@ -1,11 +1,54 @@
 "use client";
-
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import JoinButton from "./JoinButton";
 
 const LandingPage = () => {
   const videoRef = useRef(null);
+  const [webinarData, setWebinarData] = useState({
+    date: "Loading...",
+    time: "Loading...",
+    title: "Webinar",
+  });
 
+  // ✅ FETCH DATA FROM GOOGLE SHEET
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Make sure this link is your PUBLISHED CSV link
+        const sheetUrl =
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vT1V_9iuTxqWnTeU-xJhnj1oEbtkW-ulCoQGmXn0-Hn1VcmLVmKEivbasbJeh7UfcIChbm5oQBRSqHT/pub?output=csv";
+
+        const res = await fetch(sheetUrl, { cache: "no-store" });
+        const csvText = await res.text();
+
+        // Parse CSV safely
+        const rows = csvText
+          .trim()
+          .split("\n")
+          .map((r) => r.split(","));
+        const headers = rows[0].map((h) => h.trim().replace(/\r/g, ""));
+        const values = rows[1].map((v) => v.trim().replace(/\r/g, ""));
+
+        // Create a key-value object from CSV
+        const data = headers.reduce((obj, header, i) => {
+          obj[header] = values[i];
+          return obj;
+        }, {});
+
+        setWebinarData({
+          date: data.webinar_date || "Coming Soon",
+          time: data.webinar_time || "To be announced",
+          title: data.webinar_title || "Webinar",
+        });
+      } catch (err) {
+        console.error("❌ Error fetching sheet:", err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // ✅ VIDEO AUTO-PLAY CONTROL
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
@@ -76,25 +119,17 @@ const LandingPage = () => {
         </div>
 
         {/* 📅 RIGHT SIDE: WORKSHOP DETAILS */}
-        <div className="flex flex-col items-center text-center  lg:text-left ">
-          <div className="grid  grid-cols-2 gap-5 w-full max-w-md sm:max-w-lg md:max-w-xl">
+        <div className="flex flex-col items-center text-center lg:text-left">
+          <div className="grid grid-cols-2 gap-5 w-full max-w-md sm:max-w-lg md:max-w-xl">
             {[
-              { icon: "📅", label: "Date", value: "18 October" },
-              { icon: "⏰", label: "Time", value: "07:00 PM" },
+              { icon: "📅", label: "Date", value: webinarData.date },
+              { icon: "⏰", label: "Time", value: webinarData.time },
               { icon: "🎥", label: "Venue", value: "Zoom" },
               { icon: "🌐", label: "Language", value: "English | Hindi" },
             ].map((item, index) => (
               <div
                 key={index}
-                className="
-                  bg-[#11192e] border border-gray-700 
-                  rounded-2xl flex flex-col justify-center items-center 
-                  py-8 px-4 transition hover:border-yellow-500 
-                  min-h-[150px] w-full
-                  
-                
-                  lg:flex-row lg:justify-start lg:items-center lg:gap-4 lg:min-h-[100px] lg:px-6
-                "
+                className="bg-[#11192e] border border-gray-700 rounded-2xl flex flex-col justify-center items-center py-8 px-4 transition hover:border-yellow-500 min-h-[150px] w-full lg:flex-row lg:justify-start lg:items-center lg:gap-4 lg:min-h-[100px] lg:px-6"
               >
                 <div className="bg-yellow-500 text-black p-3 rounded-full text-2xl flex items-center justify-center w-12 h-12 shrink-0">
                   {item.icon}
@@ -109,13 +144,14 @@ const LandingPage = () => {
               </div>
             ))}
           </div>
+
           <div className="flex justify-center mt-8">
             <JoinButton />
           </div>
 
           <p className="mt-3 text-sm italic text-gray-300 text-center lg:text-left">
             Registrations End on{" "}
-            <span className="text-red-500 font-bold">17 OCT</span>
+            <span className="text-red-500 font-bold">{webinarData.date}</span>
           </p>
         </div>
       </div>
