@@ -6,6 +6,12 @@ import JoinButton from "./JoinButton";
 const LandingPage = () => {
   const videoRef = useRef(null);
 
+  // Read values from Vite env (build-time)
+  const WEBINAR_DATE = import.meta.env.VITE_WEBINAR_DATE || "18 October";
+  const WEBINAR_TIME = import.meta.env.VITE_WEBINAR_TIME || "07:00 PM";
+  const REGISTRATION_END = import.meta.env.VITE_REGISTRATION_END || "17 OCT";
+  const WEBINAR_TITLE = import.meta.env.VITE_WEBINAR_TITLE || "Free Workshop";
+
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement) return;
@@ -33,9 +39,8 @@ const LandingPage = () => {
         </div>
 
         <h1 className="text-4xl md:text-5xl font-extrabold leading-snug">
-          Master the{" "}
-          <span className="text-yellow-400">Art of Public Speaking:</span>{" "}
-          Master Your Life
+          {WEBINAR_TITLE}{" "}
+          <span className="text-yellow-400">— Master Your Life</span>
         </h1>
 
         <p className="mt-3 text-white font-extrabold">
@@ -56,7 +61,7 @@ const LandingPage = () => {
               muted
               loop
               className="w-full h-full object-cover"
-            ></video>
+            />
           </div>
 
           <div className="bg-[#11192e] mt-6 p-6 rounded-xl text-center max-w-2xl w-full">
@@ -68,33 +73,25 @@ const LandingPage = () => {
               <span className="font-bold text-yellow-500">
                 3000 Public Speakers
               </span>{" "}
-              & helped
-              <span className="font-bold text-yellow-500"> 170+ people</span> to
+              & helped{" "}
+              <span className="font-bold text-yellow-500">170+ people</span> to
               achieve their goals.
             </p>
           </div>
         </div>
 
         {/* 📅 RIGHT SIDE: WORKSHOP DETAILS */}
-        <div className="flex flex-col items-center text-center  lg:text-left ">
-          <div className="grid  grid-cols-2 gap-5 w-full max-w-md sm:max-w-lg md:max-w-xl">
+        <div className="flex flex-col items-center text-center lg:text-left">
+          <div className="grid grid-cols-2 gap-5 w-full max-w-md sm:max-w-lg md:max-w-xl">
             {[
-              { icon: "📅", label: "Date", value: "18 October" },
-              { icon: "⏰", label: "Time", value: "07:00 PM" },
+              { icon: "📅", label: "Date", value: WEBINAR_DATE },
+              { icon: "⏰", label: "Time", value: WEBINAR_TIME },
               { icon: "🎥", label: "Venue", value: "Zoom" },
               { icon: "🌐", label: "Language", value: "English | Hindi" },
             ].map((item, index) => (
               <div
                 key={index}
-                className="
-                  bg-[#11192e] border border-gray-700 
-                  rounded-2xl flex flex-col justify-center items-center 
-                  py-8 px-4 transition hover:border-yellow-500 
-                  min-h-[150px] w-full
-                  
-                
-                  lg:flex-row lg:justify-start lg:items-center lg:gap-4 lg:min-h-[100px] lg:px-6
-                "
+                className="bg-[#11192e] border border-gray-700 rounded-2xl flex flex-col justify-center items-center py-8 px-4 transition hover:border-yellow-500 min-h-[150px] w-full lg:flex-row lg:justify-start lg:items-center lg:gap-4 lg:min-h-[100px] lg:px-6"
               >
                 <div className="bg-yellow-500 text-black p-3 rounded-full text-2xl flex items-center justify-center w-12 h-12 shrink-0">
                   {item.icon}
@@ -109,13 +106,14 @@ const LandingPage = () => {
               </div>
             ))}
           </div>
+
           <div className="flex justify-center mt-8">
             <JoinButton />
           </div>
 
           <p className="mt-3 text-sm italic text-gray-300 text-center lg:text-left">
             Registrations End on{" "}
-            <span className="text-red-500 font-bold">17 OCT</span>
+            <span className="text-red-500 font-bold">{REGISTRATION_END}</span>
           </p>
         </div>
       </div>
