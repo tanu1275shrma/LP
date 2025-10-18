@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef } from "react";
 import JoinButton from "./JoinButton";
 
@@ -12,6 +11,8 @@ const LandingPage = () => {
   const REGISTRATION_END_DATE =
     import.meta.env.VITE_REGISTRATION_END_DATE || "17 October";
   const WEBINAR_TITLE = import.meta.env.VITE_WEBINAR_TITLE || "Free Workshop";
+  const ZOOM_LINK =
+    import.meta.env.VITE_ZOOM_LINK || "https://zoom.us/j/default-meeting";
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -106,6 +107,18 @@ const LandingPage = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* 🔗 ZOOM LINK */}
+          <div className="mt-6">
+            <a
+              href={ZOOM_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-yellow-500 text-black font-semibold px-6 py-3 rounded-full shadow-md hover:bg-yellow-400 transition"
+            >
+              Join via Zoom
+            </a>
           </div>
 
           <div className="flex justify-center mt-8">
