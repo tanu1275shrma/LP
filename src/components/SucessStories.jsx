@@ -74,9 +74,6 @@ const SuccessStories = () => {
       {/* CTA Section */}
       <div className="mt-12">
         <JoinButton />
-        <p className="mt-3 italic text-sm text-red-600">
-          Registrations End on <span className="font-bold">17 OCT</span>
-        </p>
       </div>
     </section>
   );

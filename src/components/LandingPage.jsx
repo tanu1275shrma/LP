@@ -6,10 +6,11 @@ import JoinButton from "./JoinButton";
 const LandingPage = () => {
   const videoRef = useRef(null);
 
-  // Read values from Vite env (build-time)
+  // === Read dynamic values from Vercel Environment Variables ===
   const WEBINAR_DATE = import.meta.env.VITE_WEBINAR_DATE || "18 October";
   const WEBINAR_TIME = import.meta.env.VITE_WEBINAR_TIME || "07:00 PM";
-  const REGISTRATION_END = import.meta.env.VITE_REGISTRATION_END || "17 OCT";
+  const REGISTRATION_END_DATE =
+    import.meta.env.VITE_REGISTRATION_END_DATE || "17 October";
   const WEBINAR_TITLE = import.meta.env.VITE_WEBINAR_TITLE || "Free Workshop";
 
   useEffect(() => {
@@ -113,7 +114,9 @@ const LandingPage = () => {
 
           <p className="mt-3 text-sm italic text-gray-300 text-center lg:text-left">
             Registrations End on{" "}
-            <span className="text-red-500 font-bold">{REGISTRATION_END}</span>
+            <span className="text-red-500 font-bold">
+              {REGISTRATION_END_DATE}
+            </span>
           </p>
         </div>
       </div>
