@@ -10,7 +10,8 @@ const LandingPage = () => {
   const WEBINAR_TIME = import.meta.env.VITE_WEBINAR_TIME || "07:00 PM";
   const REGISTRATION_END_DATE =
     import.meta.env.VITE_REGISTRATION_END_DATE || "17 October";
-  const WEBINAR_TITLE = import.meta.env.VITE_WEBINAR_TITLE || "Free Workshop";
+  const WEBINAR_TITLE =
+    import.meta.env.VITE_WEBINAR_TITLE || "Master Public Speaking";
   const ZOOM_LINK =
     import.meta.env.VITE_ZOOM_LINK || "https://zoom.us/j/default-meeting";
 
