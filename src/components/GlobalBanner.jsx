@@ -49,7 +49,9 @@ export default function GlobalBanner() {
               </span>
               <p className="italic text-base sm:text-lg text-black font-semibold">
                 Registrations will end
-                <span className="text-red-600 font-bold not-italic">soon!</span>
+                <span className="text-red-600 font-bold not-italic">
+                  {""}Soon!
+                </span>
               </p>
             </p>
           </div>
