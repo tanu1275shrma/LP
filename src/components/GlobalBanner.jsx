@@ -48,9 +48,10 @@ export default function GlobalBanner() {
                 Only 4 Seats Left
               </span>
               <p className="italic text-base sm:text-lg text-black font-semibold">
-                Registrations will end
+                Registrations will end{" "}
                 <span className="text-red-600 font-bold not-italic">
-                  {""}Soon!
+                  {" "}
+                  Soon!
                 </span>
               </p>
             </p>
